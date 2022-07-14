@@ -26,7 +26,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>com.Xer.Logger.all</string>
+	<string>com.niccologranieri.Logger.all</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>
