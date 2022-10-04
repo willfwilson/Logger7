@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D80BB7128ECB8CD0026BDCE /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D80BB7028ECB8CD0026BDCE /* FileManager.swift */; };
 		CE4612B82521D4850088CBC8 /* SensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4612B72521D4850088CBC8 /* SensorType.swift */; };
 		CE4612B92521D4850088CBC8 /* SensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4612B72521D4850088CBC8 /* SensorType.swift */; };
 		CE4612C12521D4F70088CBC8 /* WatchSensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4612BF2521D4F70088CBC8 /* WatchSensorData.swift */; };
@@ -85,6 +86,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D80BB7028ECB8CD0026BDCE /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		CE4612B72521D4850088CBC8 /* SensorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorType.swift; sourceTree = "<group>"; };
 		CE4612BF2521D4F70088CBC8 /* WatchSensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSensorData.swift; sourceTree = "<group>"; };
 		CE63A0BA2547A4B900B65CEA /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 				CEEF6FDD24D64ABA0015ED13 /* PushNotificationPayload.apns */,
 				CEEF6FD924D64ABA0015ED13 /* Preview Content */,
 				CE7302EB25C0062400388AAA /* ComplicationController.swift */,
+				0D80BB7028ECB8CD0026BDCE /* FileManager.swift */,
 			);
 			path = "Logger7 WatchKit Extension";
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				CE4612C12521D4F70088CBC8 /* WatchSensorData.swift in Sources */,
 				CEEF6FD024D64AB90015ED13 /* HostingController.swift in Sources */,
 				CEB8DE9A254BFF89009DEB1F /* TimestampUtils.swift in Sources */,
+				0D80BB7128ECB8CD0026BDCE /* FileManager.swift in Sources */,
 				CEEF6FCE24D64AB90015ED13 /* ContentView.swift in Sources */,
 				CEBA6F3E24D6594A008194F8 /* PhoneConnector.swift in Sources */,
 				CEEF6FD424D64AB90015ED13 /* NotificationController.swift in Sources */,

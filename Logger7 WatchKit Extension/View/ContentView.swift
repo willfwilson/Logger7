@@ -4,16 +4,36 @@
 //
 //  Created by Satoshi on 2020/10/30.
 //
+import SwiftUI //
+import WatchKit
+import AVFoundation
 
-import SwiftUI
 
 struct ContentView: View {
     @State private var logStarting = false
     @ObservedObject var sensorLogger = WatchSensorManager()
     
+    
+    
+    let recordingName = "o.m4a"
+    
+    
+    
     var body: some View {
         VStack {
             Button(action: {
+                
+                
+//                let dirPath = reecord().getDirectory()
+//                let pathArray = [dirPath, recordingName]
+//                guard let filePath = URL(string: pathArray.joined(separator: "/")) else { return }
+//
+//                let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+//                                AVSampleRateKey:48000,
+//                                AVNumberOfChannelsKey:1,
+//                                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
+
+                reecord().recordTapped()
                 self.logStarting.toggle()
                 
                 if self.logStarting {
@@ -27,10 +47,16 @@ struct ContentView: View {
                         samplingFrequency = 100
                     }
                     
+                    
+                    
                     self.sensorLogger.startUpdate(Double(samplingFrequency))
+                    
                 }
                 else {
                     self.sensorLogger.stopUpdate()
+//                    audioRecorder.stop()
+//                    audioRecorder.stop()
+
                     
                 }
             }) {
@@ -71,8 +97,100 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+
+public class reecord: NSObject, AVAudioRecorderDelegate
+{
+    
+    var recordingSession: AVAudioSession!
+    var audioRecorder: AVAudioRecorder!
+    
+    func startRecording() {
+        
+        
+        
+        let recordingName = "o.m4a"
+        
+        let dirPath = reecord().getDirectory()
+        let pathArray = [dirPath, recordingName]
+        guard let filePath = URL(string: pathArray.joined(separator: "/")) else { return }
+        
+        let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                      AVSampleRateKey:48000,
+                AVNumberOfChannelsKey:1,
+             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
+        
+        
+        print(filePath)
+        
+        do {
+            
+            let audioRecorder = try AVAudioRecorder(url: filePath, settings: settings)
+            audioRecorder.delegate = self
+            audioRecorder.record()
+            print("\n \n recording did start \n \n")
+            
+        } catch {
+            finishRecording(success: false)
+            print("\n \n recording error \n \n")
+        }
     }
-}
+    
+    func finishRecording(success: Bool) {
+        print("\n \n recording finishing \n \n")
+        audioRecorder.stop()
+        audioRecorder = nil
+    
+
+    }
+    
+    
+    @objc func recordTapped() {
+        print("\n \n record button tapped\n \n")
+        if audioRecorder == nil {
+            startRecording()
+        } else {
+            finishRecording(success: true)
+        }
+    }
+    
+    public func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        if !flag {
+            print("\n \n recording did finish \n \n ")
+            finishRecording(success: false)
+
+        }
+    }
+    
+    func getDirectory()-> String {
+        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        return dirPath
+        
+
+    
+    }}
+
+//
+//class RecInterface: WKInterfaceController {
+//
+//    let saveURl = FileManager.default.getDocumentsDirectory().appendingPathComponent("recording.wav")
+//    var audioPlayer: AVAudioPlayer?
+//
+//
+//    func recordBtn() {
+//        presentAudioRecorderController(withOutputURL: saveURl, preset: .highQualityAudio){
+//            (sucess, error) in
+//            if sucess {
+//                print("The recording is saved sucessfully")
+//            }else{
+//                print(error?.localizedDescription ?? "Unknown Error")
+//            }
+//        }
+//    }
+//}
+
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}
+

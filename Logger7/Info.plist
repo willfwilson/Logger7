@@ -24,6 +24,8 @@
 	<true/>
 	<key>NSMotionUsageDescription</key>
 	<string>Use to get device motion</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Need microphone access for recording audio</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
