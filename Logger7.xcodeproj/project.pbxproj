@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D80154128EE1316008DA6A7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D80154028EE130F008DA6A7 /* Extensions.swift */; };
 		0D80BB7128ECB8CD0026BDCE /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D80BB7028ECB8CD0026BDCE /* FileManager.swift */; };
 		CE4612B82521D4850088CBC8 /* SensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4612B72521D4850088CBC8 /* SensorType.swift */; };
 		CE4612B92521D4850088CBC8 /* SensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4612B72521D4850088CBC8 /* SensorType.swift */; };
@@ -86,6 +87,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D80154028EE130F008DA6A7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0D80BB7028ECB8CD0026BDCE /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		CE4612B72521D4850088CBC8 /* SensorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorType.swift; sourceTree = "<group>"; };
 		CE4612BF2521D4F70088CBC8 /* WatchSensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSensorData.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				CEEF6FD924D64ABA0015ED13 /* Preview Content */,
 				CE7302EB25C0062400388AAA /* ComplicationController.swift */,
 				0D80BB7028ECB8CD0026BDCE /* FileManager.swift */,
+				0D80154028EE130F008DA6A7 /* Extensions.swift */,
 			);
 			path = "Logger7 WatchKit Extension";
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 				CEBA6F3E24D6594A008194F8 /* PhoneConnector.swift in Sources */,
 				CEEF6FD424D64AB90015ED13 /* NotificationController.swift in Sources */,
 				CEEF6FD224D64AB90015ED13 /* ExtensionDelegate.swift in Sources */,
+				0D80154128EE1316008DA6A7 /* Extensions.swift in Sources */,
 				CEEF6FD624D64AB90015ED13 /* NotificationView.swift in Sources */,
 				CE7302EC25C0062400388AAA /* ComplicationController.swift in Sources */,
 				CEEF6FF424D64E4F0015ED13 /* WatchSensorLogger.swift in Sources */,

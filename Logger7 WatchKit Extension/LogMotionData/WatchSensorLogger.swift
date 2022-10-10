@@ -73,6 +73,16 @@ class WatchSensorManager: NSObject, ObservableObject, WKExtendedRuntimeSessionDe
         self.data.append(time: timestamp, x: self.gyrX, y: self.gyrY, z: self.gyrZ, sensorType: .watchGyroscope)
         
         print("Watch: \(timestamp), acc (\(self.accX), \(self.accY), \(self.accZ)), gyr (\(self.gyrX), \(self.gyrY), \(self.gyrZ))")
+       
+        //PRINTS HERE ^^^^^^^
+        
+        
+        
+        
+        
+        
+        
+        
         
 //        self.data.sendAccelerometerData()
 //        self.data.sendGyroscopeData()
