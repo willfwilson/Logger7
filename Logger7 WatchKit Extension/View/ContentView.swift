@@ -9,11 +9,12 @@ import WatchKit
 import AVFoundation
 
 var audioRecorder : AVAudioRecorder!
-
+var saveURL:URL?
 let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
               AVSampleRateKey:44100,
         AVNumberOfChannelsKey:1,
-     AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue]
+//     AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue]
+        AVEncoderAudioQualityKey:AVAudioQuality.max.rawValue]
 let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 
 
@@ -44,7 +45,9 @@ struct ContentView: View {
                     
      
                     var samplingFrequency = UserDefaults.standard.integer(forKey: "frequency_preference")
-                    let audioFilename = documentPath.appendingPathComponent("\(Date().toString(dateFormat: "dd-MM-YY_'at'_HH:mm:ss")).m4a")
+                    let audioFilename = documentPath.appendingPathComponent("\(Date().toString(dateFormat: "dd-MM-YY_'at'_HH-mm-ss")).m4a")
+//                    let audioFilename = documentPath.appendingPathComponent("\(getTimestamp()).m4a")
+                    saveURL = audioFilename
                     print("sampling frequency = \(samplingFrequency) on watch")
                     print(audioFilename)
 
@@ -157,6 +160,11 @@ struct ContentView: View {
 }
 
 
+
+
+
+
+
 public class reecord: NSObject, AVAudioRecorderDelegate
 {
     
@@ -185,7 +193,7 @@ public class reecord: NSObject, AVAudioRecorderDelegate
         }
         
         let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let audioFilename = documentPath.appendingPathComponent("\(Date().toString(dateFormat: "dd-MM-YY_'at'_HH:mm:ss")).m4a")
+        let audioFilename = documentPath.appendingPathComponent("\(getTimestamp()).m4a")
         
 //        let recordingName = "o.m4a"
         
@@ -199,7 +207,7 @@ public class reecord: NSObject, AVAudioRecorderDelegate
              AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue]
         
         
-        print(audioFilename)
+
         
         do {
             

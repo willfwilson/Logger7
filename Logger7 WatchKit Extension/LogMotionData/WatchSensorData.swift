@@ -7,6 +7,24 @@
 
 import Foundation
 
+//
+//
+//
+import WatchConnectivity
+//
+//
+//
+
+
+
+//
+//
+//
+//var saveURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+//
+//
+//
+
 // 文字列を長さで分割するextension
 extension String {
     func components(withLength length: Int) -> [String] {
@@ -63,9 +81,39 @@ struct SensorData {
         self.gyroscopeDataSec = ""
     }
     
+    
+    
+    
+    //
+    //
+    //
+    //
+    //
+//    func sendAudio() {
+//        let AudioData = NSData(contentsOf: saveURL!)
+//        sendAudioFile(file: AudioData!) // Quicker.
+//    }
+//
+//    func sendAudioFile(file: NSData) {
+//        WCSession.default.sendMessageData(file as Data, replyHandler: { (AudioData) -> Void in
+//            // handle the response from the device
+//        }) { (error) -> Void in
+//            print("here")
+//            print("error: \(error.localizedDescription)")
+//        }
+//    }
+    //
+    //
+    //
+    //
+    //
+    
+    
+    
+    
     // iPhone側にcsv形式のStringを送信する
     mutating func sendAccelerometerData() {
-//        print("Size: \(self.accelerometerDataSec.lengthOfBytes(using: String.Encoding.utf8)) byte")
+        //        print("Size: \(self.accelerometerDataSec.lengthOfBytes(using: String.Encoding.utf8)) byte")
         
         if self.connector.send(key: "ACC_DATA", value: self.accelerometerDataSec) {
             self.accelerometerDataSec = ""
@@ -73,7 +121,7 @@ struct SensorData {
     }
     
     mutating func sendGyroscopeData() {
-//        print("Size: \(self.gyroscopeDataSec.lengthOfBytes(using: String.Encoding.utf8)) byte")
+        //        print("Size: \(self.gyroscopeDataSec.lengthOfBytes(using: String.Encoding.utf8)) byte")
         
         if self.connector.send(key: "GYR_DATA", value: self.gyroscopeDataSec) {
             self.gyroscopeDataSec = ""
@@ -81,6 +129,41 @@ struct SensorData {
     }
     
     mutating func sendDataAfterStop(splitSize: Int) {
+        
+        
+//
+//
+        DispatchQueue.main.async{
+            
+            var test = true
+            print(WCSession.default.activationState)
+            while test == true
+            {
+                if WCSession.default.isReachable && test == true
+                {
+                    
+                    print(WCSession.default.transferFile(saveURL!,metadata: nil) as Any)
+                    test = false
+                }
+            }
+            
+            test = true
+        
+//
+        print(WCSession.default.outstandingFileTransfers)
+
+        print(WCSession.default.hasContentPending)
+
+
+        print("waiting...")
+        while WCSession.default.outstandingFileTransfers != []
+        {
+            
+//            print("waiting here")
+        }
+        print(WCSession.default.outstandingFileTransfers)
+        }
+//
         print("All Size: \(self.accelerometerData.lengthOfBytes(using: String.Encoding.utf8)) byte")
         
         let accComponents = self.accelerometerData.components(withLength: splitSize * 1024)
@@ -103,6 +186,9 @@ struct SensorData {
             }
         }
         
-        print("All data sended")
+        
+        print("All data sent")
+        
+        
     }
 }

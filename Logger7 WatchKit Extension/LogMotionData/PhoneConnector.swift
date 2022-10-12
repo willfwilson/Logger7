@@ -23,6 +23,24 @@ class PhoneConnector: NSObject, ObservableObject, WCSessionDelegate {
         print("activationDidCompleteWith state = \(activationState.rawValue)")
     }
     
+    /////////
+    func session(_ session: WCSession, didFinish fileTransfer: WCSessionFileTransfer, error: Error?) {
+    // handle filed transfer completion
+    print("File transfer complete")
+    print("Outstanding file transfers: \(WCSession.default.outstandingFileTransfers)")
+    print("Has content pending: \(WCSession.default.hasContentPending)")
+    }
+
+    func session(_session: WCSession, didFinishFileTransfer fileTransfer: WCSessionFileTransfer, error: NSError?) {
+    print("error: ", error as Any)
+    }
+  
+
+
+////////////////////////
+    
+    
+    
     func send(key: String, value: Any) -> Bool {
         var isSuccess = false
         
@@ -37,5 +55,6 @@ class PhoneConnector: NSObject, ObservableObject, WCSessionDelegate {
         
         return isSuccess
     }
+    
     
 }

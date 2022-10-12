@@ -11,6 +11,7 @@ import WatchConnectivity
 
 class WatchConnector: NSObject, ObservableObject, WCSessionDelegate {
     
+    var lastRecievedFile:URL?
     var sensorDataManager = SensorDataManager.shared
     
     // Sensor values from Apple Watch
@@ -28,13 +29,74 @@ class WatchConnector: NSObject, ObservableObject, WCSessionDelegate {
         super.init()
         if WCSession.isSupported() {
             WCSession.default.delegate = self
-            WCSession.default.activate()
+            print(WCSession.default.activate())
+            print("wcsession activated on phone")
         }
     }
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         print("activationDidCompleteWith state = \(activationState.rawValue)")
     }
+    
+    ///////////////
+    ///
+    
+    func session(_ session: WCSession, didFinish fileTransfer: WCSessionFileTransfer, error: Error?) {
+    print("didFinish fileTransfer")
+    }
+
+    func session(_ session: WCSession, didReceive file: WCSessionFile) {
+   
+        
+        
+        
+        let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+            let tempDocsDir = dirPaths[0] as String
+            let docsDir = tempDocsDir.appending("/")
+            let filemgr = FileManager.default
+        DispatchQueue.main.sync{
+            do {
+                
+                
+                
+                let fileName = (file.fileURL.path).components(separatedBy: "/")[(((file.fileURL.path).components(separatedBy: "/")).count)-1]
+                
+                let fileAttributes1 = try? FileManager.default.attributesOfItem(atPath: file.fileURL.path)
+                let bytes1 = fileAttributes1![.size] as? Int64
+                let bcf1 = ByteCountFormatter()
+                bcf1.allowedUnits = [.useKB]
+                bcf1.countStyle = .file
+                let string1 = bcf1.string(fromByteCount: bytes1!)
+                print("\n \n recieved file mbs:")
+                print(string1)
+                
+                try filemgr.copyItem(atPath: file.fileURL.path, toPath: docsDir + fileName)
+                
+                
+                
+            } catch let error as NSError {
+                print("Error moving file: \(error.description)")
+                
+            }
+            
+            let fileAttributes2 = try? FileManager.default.attributesOfItem(atPath: docsDir + (file.fileURL.path).components(separatedBy: "/")[(((file.fileURL.path).components(separatedBy: "/")).count)-1])
+            let bytes2 = fileAttributes2![.size] as? Int64
+            let bcf2 = ByteCountFormatter()
+            bcf2.allowedUnits = [.useKB]
+            bcf2.countStyle = .file
+            let string2 = bcf2.string(fromByteCount: bytes2!)
+            print("\n \n copied file mbs:")
+            print(string2)
+            
+            
+            
+            
+            
+            
+            print("didReceive",file)
+        }
+    }
+    ///////////////
     
     func sessionDidBecomeInactive(_ session: WCSession) {
         print("sessionDidBecomeInactive")
