@@ -67,6 +67,22 @@ class WatchSensorManager: NSObject, ObservableObject, WKExtendedRuntimeSessionDe
             self.gyrZ = Double.nan
         }
         
+//        if let data = motionManager?.deviceMotion {
+//            let x = data.rotationRate.x
+//            let y = data.rotationRate.y
+//            let z = data.rotationRate.z
+//
+//            self.gyrX = x
+//            self.gyrY = y
+//            self.gyrZ = z
+//
+//        }
+//        else {
+//            self.gyrX = Double.nan
+//            self.gyrY = Double.nan
+//            self.gyrZ = Double.nan
+//        }
+        
         // センサデータを記録する
         let timestamp = getTimestamp()
         self.data.append(time: timestamp, x: self.accX, y: self.accY, z: self.accZ, sensorType: .watchAccelerometer)

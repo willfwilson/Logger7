@@ -254,12 +254,12 @@ struct EditView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("What's your name?")) {
-                    TextField("Subject Name", text: $metadata.name)
+                Section(header: Text("Participant Name")) {
+                    TextField("Participant Name", text: $metadata.name)
                 }
                 
-                Section(header: Text("What's label?")) {
-                    TextField("Label", text: $metadata.label)
+                Section(header: Text("Condition")) {
+                    TextField("Condition", text: $metadata.label)
                 }
             }
             .navigationBarTitle("Send Data", displayMode: .inline)

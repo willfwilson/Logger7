@@ -146,9 +146,20 @@ struct SensorData {
                     test = false
                 }
             }
-            
-            test = true
-        
+//            test = true
+//            print(WCSession.default.activationState)
+//            while test == true
+//            {
+//                if WCSession.default.isReachable && test == true
+//                {
+//
+//                    print(WCSession.default.transferFile(straddress!,metadata: nil) as Any)
+//                    test = false
+//                }
+//            }
+//
+//            test = true
+//
 //
         print(WCSession.default.outstandingFileTransfers)
 

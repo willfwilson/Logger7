@@ -190,7 +190,13 @@ struct WatchSensorData {
         var urls = [URL]()
         urls.append(URL(fileURLWithPath: accelerometerFilepath))
         urls.append(URL(fileURLWithPath: gyroFilepath))
-
+        print(WatchConnector.lastFile as Any)
+        urls.append(URL(fileURLWithPath: (WatchConnector.lastFile!)))
+        
+        /////// HERE?
+        
+        
+        
         // データをリセットする
         self.resetData()
         

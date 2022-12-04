@@ -10,6 +10,7 @@ import AVFoundation
 
 var audioRecorder : AVAudioRecorder!
 var saveURL:URL?
+var straddress:URL?
 let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
               AVSampleRateKey:44100,
         AVNumberOfChannelsKey:1,
@@ -23,6 +24,8 @@ struct ContentView: View {
     @ObservedObject var sensorLogger = WatchSensorManager()
     let recordingSession = AVAudioSession.sharedInstance()
     
+//    static var timearray:[String] = []
+    @State private var timearray:[String] = []
     
     
 //    let recordingName = "o.m4a"
@@ -34,18 +37,21 @@ struct ContentView: View {
             
             Button(action: {
                 
-                
+               
 //                reecord().recordTapped()
-
-                self.logStarting.toggle()
                 
+                
+                self.logStarting.toggle()
+//                var timearray = ["AudioRec"]   // *****new
+                
+//                print(ContentView.timearray)
                 if self.logStarting {
+
                     
                     
                     
-     
                     var samplingFrequency = UserDefaults.standard.integer(forKey: "frequency_preference")
-                    let audioFilename = documentPath.appendingPathComponent("\(Date().toString(dateFormat: "dd-MM-YY_'at'_HH-mm-ss")).m4a")
+                    let audioFilename = documentPath.appendingPathComponent(("\(Date().toString(dateFormat: "dd-MM-YY_'at'_HH-mm-ss")).m4a").replacingOccurrences(of: " ", with: "_"))
 //                    let audioFilename = documentPath.appendingPathComponent("\(getTimestamp()).m4a")
                     saveURL = audioFilename
                     print("sampling frequency = \(samplingFrequency) on watch")
@@ -55,13 +61,37 @@ struct ContentView: View {
                         samplingFrequency = 100
                     }
                     
+                    
                     let session = AVAudioSession.sharedInstance()
                     try! session.setCategory(AVAudioSession.Category.playAndRecord)
-
+                    DispatchQueue.main.async {
+                        var astart=getTimestamp()
+                        if astart == ""
+                        {
+                            astart = "error"
+                        }
+                        
+//                        do
+////                        {
+//                            astart = try getTimestamp()
+//                        }
+//                        catch
+//                        {
+//                            astart = "\(error)"
+//                            print("Something went wrong: \(error)")
+                        
+                            
+                        
+                        timearray.append("AudioRec-Start_"+astart)
+    //                    print(ContentView.timearray)
+                    }
                     try! audioRecorder = AVAudioRecorder(url: audioFilename, settings: settings)
                     audioRecorder.delegate
                         audioRecorder.isMeteringEnabled = true
                         audioRecorder.prepareToRecord()
+//                        timearray.append("AudioRec-Start_"+getTimestamp())
+                        //timearray.append("\(Date().toString(dateFormat: "dd-MM-YY_'at'_HH-mm-ss"))") // *****new
+                         // *****new
                         audioRecorder.record()
 
 
@@ -74,7 +104,25 @@ struct ContentView: View {
 //                    reecord().finishRecording(success:true)
                     self.sensorLogger.stopUpdate()
                     audioRecorder.stop()
-
+                    //timearray.append("\(Date().toString(dateFormat: "dd-MM-YY_'at'_HH-mm-ss"))") // *****new
+                    timearray.append("-End_"+getTimestamp()) // *****new
+                  
+                    var newfilename = timearray.joined()+".m4a" // *****new
+                    
+                    print(newfilename) // *****new
+                    
+                    let stringfile = (timearray.joined()+".txt")
+                    straddress = documentPath.appendingPathComponent((timearray.joined()+".txt").replacingOccurrences(of: "/", with: "-").replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ":", with: "-"))
+                    do {try stringfile.write(to: documentPath.appendingPathComponent(timearray.joined()+".txt"), atomically: true, encoding: String.Encoding.utf8)}catch{}
+                    
+                 
+                    timearray.removeAll()
+                    let destinationPath = documentPath.appendingPathComponent(newfilename.replacingOccurrences(of: "/", with: "-").replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: ":", with: "-"))
+                    print(saveURL!)
+                    print(destinationPath)// *****new
+                    do{try FileManager.default.moveItem(at: saveURL!, to: destinationPath) }catch{print("Something went wrong: \(error)")}// *****new
+                    saveURL = destinationPath// *****new
+//
 
 
                     

@@ -10,7 +10,7 @@ import UIKit
 import WatchConnectivity
 
 class WatchConnector: NSObject, ObservableObject, WCSessionDelegate {
-    
+    static var lastFile: String?
     var lastRecievedFile:URL?
     var sensorDataManager = SensorDataManager.shared
     
@@ -69,7 +69,7 @@ class WatchConnector: NSObject, ObservableObject, WCSessionDelegate {
                 let string1 = bcf1.string(fromByteCount: bytes1!)
                 print("\n \n recieved file mbs:")
                 print(string1)
-                
+                WatchConnector.lastFile = docsDir + fileName
                 try filemgr.copyItem(atPath: file.fileURL.path, toPath: docsDir + fileName)
                 
                 
