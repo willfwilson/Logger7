@@ -22,7 +22,7 @@ struct LogView: View {
     var body: some View {
         VStack {
             HStack {
-                Spacer()
+//                Spacer()
                 
                 // 保存ボタン
                 Button(action: {
@@ -40,97 +40,97 @@ struct LogView: View {
                              connector: connector)
                 })
                 
-                Spacer()
+//                Spacer()
                 
                 // 計測ボタン
-                Button(action: {
-                    
-                }) {
-                    if isLogStarted {
-                        // ダブルタップ or 長押しで計測をストップ
-                        HStack {
-                            Image(systemName: "pause.circle")
-                            Text("Stop")
-                        }
-                        .onTapGesture(count: 2, perform: {
-                            self.action(true)
-                        })
-                        .onLongPressGesture {
-                            self.action(true)
-                        }
-                    }
-                    else {
-                        HStack {
-                            Image(systemName: "play.circle")
-                            Text("Start")
-                        }.onTapGesture {
-                            self.action(false)
-                        }
-                        
-                    }
-                }
+//                Button(action: {
+//
+//                }) {
+//                    if isLogStarted {
+//                        // ダブルタップ or 長押しで計測をストップ
+//                        HStack {
+//                            Image(systemName: "pause.circle")
+//                            Text("Stop")
+//                        }
+//                        .onTapGesture(count: 2, perform: {
+//                            self.action(true)
+//                        })
+//                        .onLongPressGesture {
+//                            self.action(true)
+//                        }
+//                    }
+//                    else {
+//                        HStack {
+//                            Image(systemName: "play.circle")
+//                            Text("Start")
+//                        }.onTapGesture {
+//                            self.action(false)
+//                        }
+//
+//                    }
+//                }
                 
-                Spacer()
+//                Spacer()
             }
             .padding(.vertical)
             
-            // センサ値の表示
-            VStack {
-                HStack {
-                    if UIDevice.current.userInterfaceIdiom == .phone {
-                        Image(systemName: "iphone")
-                        Text("iPhone").font(.headline)
-                    } else if UIDevice.current.userInterfaceIdiom == .pad {
-                        Image(systemName: "ipad")
-                        Text("iPad").font(.headline)
-                    }
-                }
-                
-                HStack {
-                    Image(systemName: "speedometer")
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.accX))
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.accY))
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.accZ))
-                        .multilineTextAlignment(.leading)
-                }
-                .padding(.horizontal, 30)
-                .padding(.vertical, 2)
-                
-                HStack {
-                    Image(systemName: "gyroscope")
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.gyrX))
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.gyrY))
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.gyrZ))
-                        .multilineTextAlignment(.leading)
-                }
-                .padding(.horizontal, 30)
-                .padding(.vertical, 2)
-                
-                HStack {
-                    Image(systemName: "safari")
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.magX))
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.magY))
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.magZ))
-                        .multilineTextAlignment(.leading)
-                }
-                .padding(.horizontal, 30)
-                .padding(.vertical, 2)
-            }
+//            // センサ値の表示
+//            VStack {
+//                HStack {
+//                    if UIDevice.current.userInterfaceIdiom == .phone {
+//                        Image(systemName: "iphone")
+//                        Text("iPhone").font(.headline)
+//                    } else if UIDevice.current.userInterfaceIdiom == .pad {
+//                        Image(systemName: "ipad")
+//                        Text("iPad").font(.headline)
+//                    }
+//                }
+//
+//                HStack {
+//                    Image(systemName: "speedometer")
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.accX))
+//                        .multilineTextAlignment(.leading)
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.accY))
+//                        .multilineTextAlignment(.leading)
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.accZ))
+//                        .multilineTextAlignment(.leading)
+//                }
+//                .padding(.horizontal, 30)
+//                .padding(.vertical, 2)
+//
+//                HStack {
+//                    Image(systemName: "gyroscope")
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.gyrX))
+//                        .multilineTextAlignment(.leading)
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.gyrY))
+//                        .multilineTextAlignment(.leading)
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.gyrZ))
+//                        .multilineTextAlignment(.leading)
+//                }
+//                .padding(.horizontal, 30)
+//                .padding(.vertical, 2)
+//
+//                HStack {
+//                    Image(systemName: "safari")
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.magX))
+//                        .multilineTextAlignment(.leading)
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.magY))
+//                        .multilineTextAlignment(.leading)
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.magZ))
+//                        .multilineTextAlignment(.leading)
+//                }
+//                .padding(.horizontal, 30)
+//                .padding(.vertical, 2)
+//            }
             .padding(.vertical, 10)
             
             if UIDevice.current.userInterfaceIdiom != .pad {
@@ -143,7 +143,7 @@ struct LogView: View {
                     HStack {
                         Image(systemName: "speedometer")
                         Spacer()
-                        Text(connector.isReceivedAccData ? "Received": "Not received")
+                        Text(connector.isReceivedAccData ? "Received": "Not Received")
                         Spacer()
                     }
                     .padding(.horizontal, 30)
@@ -152,7 +152,7 @@ struct LogView: View {
                     HStack {
                         Image(systemName: "gyroscope")
                         Spacer()
-                        Text(connector.isReceivedGyrData ? "Received": "Not received")
+                        Text(connector.isReceivedGyrData ? "Received": "Not Received")
                         Spacer()
                     }
                     .padding(.horizontal, 30)
@@ -162,45 +162,45 @@ struct LogView: View {
                 .padding(.vertical, 10)
             }
             
-            VStack {
-                HStack {
-                    Image(systemName: "airpodspro")
-                    Text("AirPods Pro").font(.headline)
-                }
-                
-                HStack {
-                    Image(systemName: "speedometer")
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.headAccX))
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.headAccY))
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.headAccZ))
-                        .multilineTextAlignment(.leading)
-                }
-                .padding(.horizontal, 30)
-                .padding(.vertical, 2)
-                
-                HStack {
-                    Image(systemName: "gyroscope")
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.headGyrX))
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.headGyrY))
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(String(format: "%.3f", sensorLogger.headGyrZ))
-                        .multilineTextAlignment(.leading)
-                }
-                .padding(.horizontal, 30)
-                .padding(.vertical, 2)
-                
-            }
-            .padding(.vertical, 10)
-            
+//            VStack {
+//                HStack {
+//                    Image(systemName: "airpodspro")
+//                    Text("AirPods Pro").font(.headline)
+//                }
+//
+//                HStack {
+//                    Image(systemName: "speedometer")
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.headAccX))
+//                        .multilineTextAlignment(.leading)
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.headAccY))
+//                        .multilineTextAlignment(.leading)
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.headAccZ))
+//                        .multilineTextAlignment(.leading)
+//                }
+//                .padding(.horizontal, 30)
+//                .padding(.vertical, 2)
+//
+//                HStack {
+//                    Image(systemName: "gyroscope")
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.headGyrX))
+//                        .multilineTextAlignment(.leading)
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.headGyrY))
+//                        .multilineTextAlignment(.leading)
+//                    Spacer()
+//                    Text(String(format: "%.3f", sensorLogger.headGyrZ))
+//                        .multilineTextAlignment(.leading)
+//                }
+//                .padding(.horizontal, 30)
+//                .padding(.vertical, 2)
+//
+//            }
+//            .padding(.vertical, 10)
+//
         }
     }
     
@@ -291,7 +291,7 @@ struct EditView: View {
                                         ActivityView(activityItems: sensorDataManager.getURLs(label: metadata.label, subject: metadata.name), applicationActivities: nil)
                                     })
                                     .alert(isPresented: $isEmptyMetadata, content: {
-                                        Alert(title: Text("保存できません"), message: Text("Subject NameとLabelを入力してください"))
+                                        Alert(title: Text("Empty Metadata Field"), message: Text("Empty Metadata Field"))
                                     }),
                                 trailing:
                                     Button(action: {

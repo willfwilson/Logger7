@@ -11,7 +11,8 @@ import AVFoundation
 var audioRecorder : AVAudioRecorder!
 var saveURL:URL?
 var straddress:URL?
-let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+//let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+let settings = [AVFormatIDKey: Int(kAudioFormatLinearPCM),
               AVSampleRateKey:44100,
         AVNumberOfChannelsKey:1,
 //     AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue]
@@ -58,7 +59,7 @@ struct ContentView: View {
                     print(audioFilename)
 
                     if samplingFrequency == 0 {
-                        samplingFrequency = 100
+                        samplingFrequency = 500
                     }
                     
                     
@@ -107,7 +108,8 @@ struct ContentView: View {
                     //timearray.append("\(Date().toString(dateFormat: "dd-MM-YY_'at'_HH-mm-ss"))") // *****new
                     timearray.append("-End_"+getTimestamp()) // *****new
                   
-                    var newfilename = timearray.joined()+".m4a" // *****new
+//                    var newfilename = timearray.joined()+".m4a" // *****new
+                    var newfilename = timearray.joined()+".wav" // *****new
                     
                     print(newfilename) // *****new
                     
@@ -241,7 +243,8 @@ public class reecord: NSObject, AVAudioRecorderDelegate
         }
         
         let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let audioFilename = documentPath.appendingPathComponent("\(getTimestamp()).m4a")
+//        let audioFilename = documentPath.appendingPathComponent("\(getTimestamp()).m4a")
+        let audioFilename = documentPath.appendingPathComponent("\(getTimestamp()).wav")
         
 //        let recordingName = "o.m4a"
         
@@ -249,7 +252,9 @@ public class reecord: NSObject, AVAudioRecorderDelegate
 //        let pathArray = [dirPath, recordingName]
 //        guard let filePath = URL(string: pathArray.joined(separator: "/")) else { return }
 //
-        let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+//        let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+        let settings = [AVFormatIDKey: Int(kAudioFormatLinearPCM),
+                        
                       AVSampleRateKey:44100,
                 AVNumberOfChannelsKey:1,
              AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue]

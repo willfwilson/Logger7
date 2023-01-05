@@ -23,7 +23,8 @@ class WatchSensorManager: NSObject, ObservableObject, WKExtendedRuntimeSessionDe
     @Published var gyrY = 0.0
     @Published var gyrZ = 0.0
     
-    private var samplingFrequency = 50.0
+   private var samplingFrequency = 50.0
+//    private var samplingFrequency = 500.0
     
     var timer = Timer()
     
@@ -40,6 +41,7 @@ class WatchSensorManager: NSObject, ObservableObject, WKExtendedRuntimeSessionDe
             let x = data.acceleration.x
             let y = data.acceleration.y
             let z = data.acceleration.z
+            
             
             self.accX = x
             self.accY = y
@@ -106,11 +108,13 @@ class WatchSensorManager: NSObject, ObservableObject, WKExtendedRuntimeSessionDe
     
     func startUpdate(_ freq: Double) {
         if motionManager!.isAccelerometerAvailable {
+            motionManager?.accelerometerUpdateInterval = (1.0 / freq)
             motionManager?.startAccelerometerUpdates()
         }
         
         // Gyroscopeの生データの代わりにDeviceMotionのrotationRateを取得する
         if motionManager!.isDeviceMotionAvailable {
+            motionManager?.deviceMotionUpdateInterval = (1.0 / freq)
             motionManager?.startDeviceMotionUpdates()
         }
         
