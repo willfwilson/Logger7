@@ -22,8 +22,15 @@ class WatchSensorManager: NSObject, ObservableObject, WKExtendedRuntimeSessionDe
     @Published var gyrX = 0.0
     @Published var gyrY = 0.0
     @Published var gyrZ = 0.0
+    @Published var qX = 0.0
+    @Published var qY = 0.0
+    @Published var qZ = 0.0
+    @Published var qW = 0.0
+    @Published var roll = 0.0
+    @Published var pitch = 0.0
+    @Published var yaw = 0.0
     
-   private var samplingFrequency = 50.0
+   private var samplingFrequency = 100.0
 //    private var samplingFrequency = 500.0
     
     var timer = Timer()
@@ -57,16 +64,43 @@ class WatchSensorManager: NSObject, ObservableObject, WKExtendedRuntimeSessionDe
             let x = data.rotationRate.x
             let y = data.rotationRate.y
             let z = data.rotationRate.z
+            let qx = data.attitude.quaternion.x
+            let qy = data.attitude.quaternion.y
+            let qz = data.attitude.quaternion.z
+            let qw = data.attitude.quaternion.w
+            let roll = data.attitude.roll
+            let pitch = data.attitude.pitch
+            let yaw = data.attitude.yaw
+           
             
             self.gyrX = x
             self.gyrY = y
             self.gyrZ = z
+            
+            self.qX = qx
+            self.qY = qy
+            self.qZ = qz
+            self.qW = qw
+            
+            self.roll = roll
+            self.pitch = pitch
+            self.yaw = yaw
+            
             
         }
         else {
             self.gyrX = Double.nan
             self.gyrY = Double.nan
             self.gyrZ = Double.nan
+            
+            self.qX = Double.nan
+            self.qY = Double.nan
+            self.qZ = Double.nan
+            self.qW = Double.nan
+            
+            self.roll = Double.nan
+            self.pitch = Double.nan
+            self.yaw = Double.nan
         }
         
 //        if let data = motionManager?.deviceMotion {
@@ -87,8 +121,9 @@ class WatchSensorManager: NSObject, ObservableObject, WKExtendedRuntimeSessionDe
         
         // センサデータを記録する
         let timestamp = getTimestamp()
-        self.data.append(time: timestamp, x: self.accX, y: self.accY, z: self.accZ, sensorType: .watchAccelerometer)
-        self.data.append(time: timestamp, x: self.gyrX, y: self.gyrY, z: self.gyrZ, sensorType: .watchGyroscope)
+        self.data.accAppend(time: timestamp, x: self.accX, y: self.accY, z: self.accZ, sensorType: .watchAccelerometer)
+        
+        self.data.gyrAppend(time: timestamp, x: self.gyrX, y: self.gyrY, z: self.gyrZ, qx: self.qX, qy: self.qY, qz: self.qZ, qw: self.qW, roll: self.roll, pitch: self.pitch, yaw: self.yaw, sensorType: .watchGyroscope)
         
 //        print("Watch: \(timestamp), acc (\(self.accX), \(self.accY), \(self.accZ)), gyr (\(self.gyrX), \(self.gyrY), \(self.gyrZ))")
 //       
@@ -107,6 +142,7 @@ class WatchSensorManager: NSObject, ObservableObject, WKExtendedRuntimeSessionDe
     }
     
     func startUpdate(_ freq: Double) {
+        
         if motionManager!.isAccelerometerAvailable {
             motionManager?.accelerometerUpdateInterval = (1.0 / freq)
             motionManager?.startAccelerometerUpdates()

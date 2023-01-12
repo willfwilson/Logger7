@@ -55,11 +55,36 @@ struct SensorData {
         self.gyroscopeDataSec = ""
     }
     
-    mutating func append(time: String, x: Double, y: Double, z: Double, sensorType: SensorType) {
+    mutating func accAppend(time: String, x: Double, y: Double, z: Double, sensorType: SensorType) {
         var line = time + ","
         line.append(String(x) + ",")
         line.append(String(y) + ",")
         line.append(String(z) + "\n")
+        
+        switch sensorType {
+        case .watchAccelerometer:
+            self.accelerometerData.append(line)
+            self.accelerometerDataSec.append(line)
+        case .watchGyroscope:
+            self.gyroscopeData.append(line)
+            self.gyroscopeDataSec.append(line)
+        default:
+            print("No data of \(sensorType) is available.")
+        }
+    }
+    
+    mutating func gyrAppend(time: String, x: Double, y: Double, z: Double, qx: Double, qy: Double, qz: Double, qw: Double,roll: Double,pitch: Double,yaw: Double, sensorType: SensorType) {
+        var line = time + ","
+        line.append(String(x) + ",")
+        line.append(String(y) + ",")
+        line.append(String(z) + ",")
+        line.append(String(qx) + ",")
+        line.append(String(qy) + ",")
+        line.append(String(qz) + ",")
+        line.append(String(qw) + ",")
+        line.append(String(roll) + ",")
+        line.append(String(pitch) + ",")
+        line.append(String(yaw) + "\n")
         
         switch sensorType {
         case .watchAccelerometer:

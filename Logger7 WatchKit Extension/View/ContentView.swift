@@ -11,8 +11,9 @@ import AVFoundation
 var audioRecorder : AVAudioRecorder!
 var saveURL:URL?
 var straddress:URL?
-//let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-let settings = [AVFormatIDKey: Int(kAudioFormatLinearPCM),
+let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+//let settings = [AVFormatIDKey: Int(kAudioFormatAppleLossless),
+//let settings = [AVFormatIDKey: Int(kAudioFormatLinearPCM),
               AVSampleRateKey:44100,
         AVNumberOfChannelsKey:1,
 //     AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue]
@@ -20,8 +21,10 @@ let settings = [AVFormatIDKey: Int(kAudioFormatLinearPCM),
 let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 
 
+
 struct ContentView: View {
     @State private var logStarting = false
+    @State private var traffic = false
     @ObservedObject var sensorLogger = WatchSensorManager()
     let recordingSession = AVAudioSession.sharedInstance()
     
@@ -36,13 +39,16 @@ struct ContentView: View {
     var body: some View {
         VStack {
             
+            
+            
             Button(action: {
                 
                
 //                reecord().recordTapped()
                 
-                
+                self.traffic.toggle()
                 self.logStarting.toggle()
+                
 //                var timearray = ["AudioRec"]   // *****new
                 
 //                print(ContentView.timearray)
@@ -59,7 +65,7 @@ struct ContentView: View {
                     print(audioFilename)
 
                     if samplingFrequency == 0 {
-                        samplingFrequency = 500
+                        samplingFrequency = 100
                     }
                     
                     
@@ -95,11 +101,15 @@ struct ContentView: View {
                          // *****new
                         audioRecorder.record()
 
-
-
-                    self.sensorLogger.startUpdate(Double(samplingFrequency))
-//                    reecord().startRecording()
-
+                    
+                    
+                        
+                        self.sensorLogger.startUpdate(Double(samplingFrequency))
+                    
+                    self.traffic.toggle()
+                        
+                        //                    reecord().startRecording()
+                    
                 }
                 else {
 //                    reecord().finishRecording(success:true)
@@ -108,8 +118,8 @@ struct ContentView: View {
                     //timearray.append("\(Date().toString(dateFormat: "dd-MM-YY_'at'_HH-mm-ss"))") // *****new
                     timearray.append("-End_"+getTimestamp()) // *****new
                   
-//                    var newfilename = timearray.joined()+".m4a" // *****new
-                    var newfilename = timearray.joined()+".wav" // *****new
+                    var newfilename = timearray.joined()+".m4a" // *****new
+//                    var newfilename = timearray.joined()+".wav" // *****new
                     
                     print(newfilename) // *****new
                     
@@ -124,17 +134,26 @@ struct ContentView: View {
                     print(destinationPath)// *****new
                     do{try FileManager.default.moveItem(at: saveURL!, to: destinationPath) }catch{print("Something went wrong: \(error)")}// *****new
                     saveURL = destinationPath// *****new
-//
+                   
+                    self.traffic.toggle()
 
 
                     
                 }
             }) {
-                if self.logStarting {
-                    Image(systemName: "pause.circle")
+                if self.traffic == true
+                {
+                    Image(systemName: "pause.circle").foregroundColor(Color.orange).font(.largeTitle)
                 }
-                else {
-                    Image(systemName: "play.circle")
+                
+                else if self.logStarting == true, self.traffic == false
+                {
+                    Image(systemName: "pause.circle").foregroundColor(Color.green).font(.largeTitle)
+                }
+                
+                else
+                {
+                    Image(systemName: "play.circle").foregroundColor(Color.red).font(.largeTitle)
                 }
             }
             

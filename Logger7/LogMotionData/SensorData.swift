@@ -140,11 +140,13 @@ struct WatchSensorData {
     var accelerometerData: String
     var gyroscopeData: String
     
-    private let column = "time,x,y,z\n"
+    private let accColumn = "time,x,y,z\n"
+    private let gyrColumn = "time,x,y,z,qx,qy,qz,qw,roll,pitch,yaw\n"
+    
     
     public init() {
-        self.accelerometerData = self.column
-        self.gyroscopeData = self.column
+        self.accelerometerData = self.accColumn
+        self.gyroscopeData = self.gyrColumn
     }
     
     mutating func append(line: String, sensorType: SensorType) {
@@ -159,7 +161,7 @@ struct WatchSensorData {
     }
     
     mutating func getDataURLs(label: String, subject: String) -> SensorDataRecord? {
-        if self.accelerometerData == self.column {
+        if self.accelerometerData == self.accColumn {
             return nil
         }
         
@@ -213,8 +215,8 @@ struct WatchSensorData {
     
     // データをリセットする
     mutating func resetData() {
-        self.accelerometerData = self.column
-        self.gyroscopeData = self.column
+        self.accelerometerData = self.accColumn
+        self.gyroscopeData = self.gyrColumn
     }
 }
 
