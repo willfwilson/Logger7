@@ -22,8 +22,6 @@
 	<string>1</string>
 	<key>CLKComplicationPrincipalClass</key>
 	<string>$(PRODUCT_MODULE_NAME).ComplicationController</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Need microphone access for recording audio</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
@@ -34,11 +32,13 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Need microphone access for recording audio</string>
 	<key>UIBackgroundModes</key>
 	<array/>
 	<key>WKBackgroundModes</key>
 	<array>
-		<string>self-care</string>
+		<string>physical-therapy</string>
 		<string>workout-processing</string>
 	</array>
 	<key>WKExtensionDelegateClassName</key>

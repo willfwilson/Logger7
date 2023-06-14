@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D7B60B22A3A4E240079E67B /* video.mov in Resources */ = {isa = PBXBuildFile; fileRef = 0D7B60B12A3A4E240079E67B /* video.mov */; };
 		0D80154128EE1316008DA6A7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D80154028EE130F008DA6A7 /* Extensions.swift */; };
 		0D80BB7128ECB8CD0026BDCE /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D80BB7028ECB8CD0026BDCE /* FileManager.swift */; };
 		CE4612B82521D4850088CBC8 /* SensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4612B72521D4850088CBC8 /* SensorType.swift */; };
@@ -87,6 +88,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D7B60B12A3A4E240079E67B /* video.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = video.mov; path = ../../video.mov; sourceTree = "<group>"; };
+		0D7B60B32A3A60390079E67B /* video.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = video.mov; sourceTree = "<group>"; };
 		0D80154028EE130F008DA6A7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0D80BB7028ECB8CD0026BDCE /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		CE4612B72521D4850088CBC8 /* SensorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorType.swift; sourceTree = "<group>"; };
@@ -220,6 +223,7 @@
 		CEEF6F8624D64AB50015ED13 = {
 			isa = PBXGroup;
 			children = (
+				0D7B60B32A3A60390079E67B /* video.mov */,
 				CE77028D24D6967600794923 /* materials */,
 				CEEF6FF524D64EC90015ED13 /* README.md */,
 				CEEF6F9124D64AB50015ED13 /* Logger7 */,
@@ -289,6 +293,7 @@
 				CE7302EB25C0062400388AAA /* ComplicationController.swift */,
 				0D80BB7028ECB8CD0026BDCE /* FileManager.swift */,
 				0D80154028EE130F008DA6A7 /* Extensions.swift */,
+				0D7B60B12A3A4E240079E67B /* video.mov */,
 			);
 			path = "Logger7 WatchKit Extension";
 			sourceTree = "<group>";
@@ -424,6 +429,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEEF6FDB24D64ABA0015ED13 /* Preview Assets.xcassets in Resources */,
+				0D7B60B22A3A4E240079E67B /* video.mov in Resources */,
 				CEEF6FD824D64ABA0015ED13 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

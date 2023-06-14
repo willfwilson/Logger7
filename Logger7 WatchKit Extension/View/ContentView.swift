@@ -7,6 +7,8 @@
 import SwiftUI //
 import WatchKit
 import AVFoundation
+import AVKit
+import ClockKit
 
 var audioRecorder : AVAudioRecorder!
 var saveURL:URL?
@@ -21,10 +23,12 @@ let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
 let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 
 
+let audioURL = Bundle.main.url(forResource: "video", withExtension: "mov")
+let player = AVPlayer(url: audioURL!)
 
 struct ContentView: View {
     @State private var logStarting = false
-    @State private var traffic = false
+    @State public var traffic = false
     @ObservedObject var sensorLogger = WatchSensorManager()
     let recordingSession = AVAudioSession.sharedInstance()
     
@@ -32,8 +36,17 @@ struct ContentView: View {
     @State private var timearray:[String] = []
     
     
-//    let recordingName = "o.m4a"
+
     
+// new bugfix vv
+    
+    
+
+    
+    @ObservedObject var viewModel = PlayerViewModel()
+    
+    
+// new bugfix ^^
     
     
     var body: some View {
@@ -43,7 +56,7 @@ struct ContentView: View {
             
             Button(action: {
                 
-               
+                player.play()
 //                reecord().recordTapped()
                 
                 self.traffic.toggle()
@@ -54,7 +67,6 @@ struct ContentView: View {
 //                print(ContentView.timearray)
                 if self.logStarting {
 
-                    
                     
                     
                     var samplingFrequency = UserDefaults.standard.integer(forKey: "frequency_preference")
@@ -93,7 +105,7 @@ struct ContentView: View {
     //                    print(ContentView.timearray)
                     }
                     try! audioRecorder = AVAudioRecorder(url: audioFilename, settings: settings)
-                    audioRecorder.delegate
+                        audioRecorder.delegate
                         audioRecorder.isMeteringEnabled = true
                         audioRecorder.prepareToRecord()
 //                        timearray.append("AudioRec-Start_"+getTimestamp())
@@ -109,11 +121,21 @@ struct ContentView: View {
                     self.traffic.toggle()
                         
                         //                    reecord().startRecording()
+//                    player.play()
+//                    DispatchQueue.global(qos:.background).async{
+//                        while true{
+//                            player.seek(to:.zero)
+//                        }
+//                    }
+
+                    viewModel.handleAppear()
                     
                 }
                 else {
+                    player.seek(to: .zero)
 //                    reecord().finishRecording(success:true)
                     self.sensorLogger.stopUpdate()
+                    viewModel.handleDisappear()
                     audioRecorder.stop()
                     //timearray.append("\(Date().toString(dateFormat: "dd-MM-YY_'at'_HH-mm-ss"))") // *****new
                     timearray.append("-End_"+getTimestamp()) // *****new
@@ -136,7 +158,7 @@ struct ContentView: View {
                     saveURL = destinationPath// *****new
                    
                     self.traffic.toggle()
-
+                    
 
                     
                 }
@@ -149,13 +171,16 @@ struct ContentView: View {
                 else if self.logStarting == true, self.traffic == false
                 {
                     Image(systemName: "pause.circle").foregroundColor(Color.green).font(.largeTitle)
+                     
+                    // new  bugfix ^^^^^^
                 }
                 
                 else
                 {
                     Image(systemName: "play.circle").foregroundColor(Color.red).font(.largeTitle)
                 }
-            }
+            }.background(
+                VideoPlayer(player: player).opacity(100))
             
             VStack {
                 VStack {
@@ -208,11 +233,12 @@ struct ContentView: View {
                     Text(String(format: "%.2f", self.sensorLogger.accY))
                     Spacer()
                     Text(String(format: "%.2f", self.sensorLogger.accZ))
-                }.padding(.horizontal)
+                }
+                        
                 }
                 
                 VStack {
-                Text("Gyroscope").font(.headline)
+                    Text("Gyroscope").font(.headline).padding(.horizontal)
                 HStack {
                     Text(String(format: "%.2f", self.sensorLogger.gyrX))
                     Spacer()
@@ -228,8 +254,41 @@ struct ContentView: View {
     }
 }
 
+// new  bugfix vvvvv
+@MainActor final class PlayerViewModel: ObservableObject {
 
+    var player = AVPlayer()
 
+    func handleAppear() {
+        guard let url = Bundle.main.url(forResource: "video", withExtension: "mov") else { return }
+        player.replaceCurrentItem(with: AVPlayerItem(url: url))
+        startAVPlayerPlayTask()
+        print("TESTING GO")
+    }
+
+    func handleDisappear() {
+        avPlayerPlayTask?.cancel()
+        player.replaceCurrentItem(with: nil)
+    }
+
+    private var avPlayerPlayTask: Task<Void, Never>?
+
+    public func startAVPlayerPlayTask() {
+        avPlayerPlayTask?.cancel()
+        avPlayerPlayTask = Task {
+            
+            print("TESTING PLAY")
+            await player.seek(to: .zero)
+            player.play()
+            try? await Task.sleep(nanoseconds: UInt64(1 * 1_000_000_000))
+            guard !Task.isCancelled else { return }
+            startAVPlayerPlayTask()
+        }
+    }
+
+}
+
+// new  bugfix ^^^^^^
 
 
 
@@ -314,6 +373,9 @@ public class reecord: NSObject, AVAudioRecorderDelegate
             finishRecording(success: true)
         }
     }
+    
+    
+    
     
     public func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if !flag {

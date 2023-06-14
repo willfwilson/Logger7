@@ -9,6 +9,7 @@ import Foundation
 import CoreMotion
 import Combine
 import WatchKit
+import SwiftUI
 
 
 class WatchSensorManager: NSObject, ObservableObject, WKExtendedRuntimeSessionDelegate {
