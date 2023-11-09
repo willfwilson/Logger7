@@ -642,7 +642,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.willwilson.Logger.all.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.willwilson.Logger2.all.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -667,7 +667,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.willwilson.Logger.all.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.willwilson.Logger2.all.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -687,7 +687,7 @@
 				IBSC_MODULE = Logger7_WatchKit_Extension;
 				INFOPLIST_FILE = "$(SRCROOT)/Logger7 WatchKit App/Info.plist";
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.willwilson.Logger.all.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.willwilson.Logger2.all.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -707,7 +707,7 @@
 				IBSC_MODULE = Logger7_WatchKit_Extension;
 				INFOPLIST_FILE = "$(SRCROOT)/Logger7 WatchKit App/Info.plist";
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.willwilson.Logger.all.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.willwilson.Logger2.all.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -732,7 +732,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.willwilson.Logger.all;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.willwilson.Logger2.all;
 				PRODUCT_NAME = Logger;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -754,7 +754,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.willwilson.Logger.all;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.willwilson.Logger2.all;
 				PRODUCT_NAME = Logger;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

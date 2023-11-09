@@ -43,7 +43,7 @@ struct ContentView: View {
     
 
     
-    @ObservedObject var viewModel = PlayerViewModel()
+//    @ObservedObject var viewModel = PlayerViewModel()
     
     
 // new bugfix ^^
@@ -104,6 +104,7 @@ struct ContentView: View {
                         timearray.append("AudioRec-Start_"+astart)
     //                    print(ContentView.timearray)
                     }
+                    WKInterfaceDevice.current().play(.start)
                     try! audioRecorder = AVAudioRecorder(url: audioFilename, settings: settings)
                         audioRecorder.delegate
                         audioRecorder.isMeteringEnabled = true
@@ -112,30 +113,33 @@ struct ContentView: View {
                         //timearray.append("\(Date().toString(dateFormat: "dd-MM-YY_'at'_HH-mm-ss"))") // *****new
                          // *****new
                         audioRecorder.record()
-
+                        
                     
                     
                         
                         self.sensorLogger.startUpdate(Double(samplingFrequency))
-                    
+                    WKInterfaceDevice.current().play(.retry)
                     self.traffic.toggle()
-                        
+//                  
                         //                    reecord().startRecording()
 //                    player.play()
-//                    DispatchQueue.global(qos:.background).async{
-//                        while true{
+                    DispatchQueue.global(qos:.background).async{
+                        while self.traffic == false{
 //                            player.seek(to:.zero)
-//                        }
-//                    }
+                            WKInterfaceDevice.current().play(.start)
+//                            let bpm=120
+                            usleep(545454)
+                        }
+                    }
 
-                    viewModel.handleAppear()
+//                    viewModel.handleAppear()
                     
                 }
                 else {
-                    player.seek(to: .zero)
+//                    player.seek(to: .zero)
 //                    reecord().finishRecording(success:true)
                     self.sensorLogger.stopUpdate()
-                    viewModel.handleDisappear()
+//                    viewModel.handleDisappear()
                     audioRecorder.stop()
                     //timearray.append("\(Date().toString(dateFormat: "dd-MM-YY_'at'_HH-mm-ss"))") // *****new
                     timearray.append("-End_"+getTimestamp()) // *****new
@@ -179,8 +183,9 @@ struct ContentView: View {
                 {
                     Image(systemName: "play.circle").foregroundColor(Color.red).font(.largeTitle)
                 }
-            }.background(
-                VideoPlayer(player: player).opacity(100))
+            }
+//            .background(
+//                VideoPlayer(player: player).opacity(100))
             
             VStack {
                 VStack {
@@ -254,39 +259,39 @@ struct ContentView: View {
     }
 }
 
-// new  bugfix vvvvv
-@MainActor final class PlayerViewModel: ObservableObject {
-
-    var player = AVPlayer()
-
-    func handleAppear() {
-        guard let url = Bundle.main.url(forResource: "video", withExtension: "mov") else { return }
-        player.replaceCurrentItem(with: AVPlayerItem(url: url))
-        startAVPlayerPlayTask()
-        print("TESTING GO")
-    }
-
-    func handleDisappear() {
-        avPlayerPlayTask?.cancel()
-        player.replaceCurrentItem(with: nil)
-    }
-
-    private var avPlayerPlayTask: Task<Void, Never>?
-
-    public func startAVPlayerPlayTask() {
-        avPlayerPlayTask?.cancel()
-        avPlayerPlayTask = Task {
-            
-            print("TESTING PLAY")
-            await player.seek(to: .zero)
-            player.play()
-            try? await Task.sleep(nanoseconds: UInt64(1 * 1_000_000_000))
-            guard !Task.isCancelled else { return }
-            startAVPlayerPlayTask()
-        }
-    }
-
-}
+//// new  bugfix vvvvv
+//@MainActor final class PlayerViewModel: ObservableObject {
+//
+//    var player = AVPlayer()
+//
+//    func handleAppear() {
+//        guard let url = Bundle.main.url(forResource: "video", withExtension: "mov") else { return }
+//        player.replaceCurrentItem(with: AVPlayerItem(url: url))
+//        startAVPlayerPlayTask()
+//        print("TESTING GO")
+//    }
+//
+//    func handleDisappear() {
+//        avPlayerPlayTask?.cancel()
+//        player.replaceCurrentItem(with: nil)
+//    }
+//
+//    private var avPlayerPlayTask: Task<Void, Never>?
+//
+//    public func startAVPlayerPlayTask() {
+//        avPlayerPlayTask?.cancel()
+//        avPlayerPlayTask = Task {
+//
+//            print("TESTING PLAY")
+//            await player.seek(to: .zero)
+//            player.play()
+//            try? await Task.sleep(nanoseconds: UInt64(1 * 1_000_000_000))
+//            guard !Task.isCancelled else { return }
+//            startAVPlayerPlayTask()
+//        }
+//    }
+//
+//}
 
 // new  bugfix ^^^^^^
 

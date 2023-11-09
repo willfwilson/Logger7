@@ -16,19 +16,19 @@
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Need microphone access for recording audio</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Need microphone access for recording audio</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>com.example.willwilson.Logger.all</string>
+	<string>com.example.willwilson.Logger2.all</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>
